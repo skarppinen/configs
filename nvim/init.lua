@@ -26,11 +26,6 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
-
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
-
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -133,6 +128,8 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
+vim.o.relativenumber = true
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -157,14 +154,15 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
-vim.o.shiftwidth = 4
-
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
+
+-- Tab length in spaces.
+vim.o.shiftwidth = 4
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -174,6 +172,7 @@ vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 
+require('own-keymaps')
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -355,13 +354,20 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
   },
+  r_language_server = {
+    r = {
+      lsp = {
+        diagnostics = false,
+        snippet_support = false
+      }
+    }
+  }
 }
 
 -- Setup neovim lua configuration
