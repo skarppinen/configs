@@ -56,8 +56,8 @@ require('lazy').setup({
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
 
-      -- Adds a number of user-friendly snippets
-      'rafamadriz/friendly-snippets',
+  --    -- Adds a number of user-friendly snippets
+  --    'rafamadriz/friendly-snippets',
     },
   },
 
@@ -81,17 +81,6 @@ require('lazy').setup({
         component_separators = '|',
         section_separators = '',
       },
-    },
-  },
-
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
     },
   },
 
