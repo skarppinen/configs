@@ -18,3 +18,7 @@ do
 	 noremap = true})
 end
 
+vim.keymap.set('t', "<Esc>", "<C-\\><C-n>",
+	{desc = "Use Esc to enter normal mode from terminal mode",
+	 noremap = true})
+
