@@ -172,6 +172,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    initial_mode = "normal",
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -179,6 +180,12 @@ require('telescope').setup {
       },
     },
   },
+  -- Can do 'picker' specifig configuration here.
+  --pickers = {
+  --  buffers = {
+  --    initial_mode = "normal",
+  --  }
+  --}
 }
 
 -- Enable telescope fzf native, if installed
@@ -197,10 +204,10 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
+--vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+--vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -275,6 +282,33 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Configure LSP ]]
+-- Enable the following language servers
+--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+--
+--  Add any additional override configuration in the following tables. They will be passed to
+--  the `settings` field of the server config. You must look up that documentation yourself.
+local servers = {
+  clangd = {},
+  -- gopls = {},
+  -- pyright = {},
+  -- rust_analyzer = {},
+  -- tsserver = {},
+  lua_ls = {
+    Lua = {
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
+    },
+  },
+  --r_language_server = {
+  --  r = {
+  --    lsp = {
+  --      diagnostics = false,
+  --      snippet_support = false
+  --    }
+  --  }
+  --}
+}
+
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(server_name, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
@@ -318,7 +352,7 @@ local on_attach = function(server_name, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 
-  -- LSP specific settings. 
+  -- Settings specific to a particular LSP implementation. 
   if server_name == "clangd" then
     local switch = function() vim.cmd('ClangdSwitchSourceHeader') end
     nmap('<leader>sh', switch, "Switch between [s]ource and [h]eader file")
@@ -326,32 +360,7 @@ local on_attach = function(server_name, bufnr)
 
 end
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
-local servers = {
-  clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
-  --r_language_server = {
-  --  r = {
-  --    lsp = {
-  --      diagnostics = false,
-  --      snippet_support = false
-  --    }
-  --  }
-  --}
-}
+
 
 -- Setup neovim lua configuration
 require('neodev').setup()
