@@ -1,4 +1,4 @@
-vim.keymap.set('n', '<leader>ev', "<cmd>vsplit $MYVIMRC<cr>", {desc = "[E]dit [V]imrc (or init.lua)",
+vim.keymap.set('n', '<leader>ev', "<cmd>tabe $MYVIMRC<cr>", {desc = "[E]dit [V]imrc (or init.lua) in a tab",
       noremap = true})
 
 vim.keymap.set('n', "<leader>'", "ciw'<c-r>\"'",

@@ -56,18 +56,7 @@ require('lazy').setup({
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
 
-  --    -- Adds a number of user-friendly snippets
-  --    'rafamadriz/friendly-snippets',
     },
-  },
-
-  {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
   },
 
   {
@@ -83,9 +72,6 @@ require('lazy').setup({
       },
     },
   },
-
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -103,14 +89,14 @@ require('lazy').setup({
     end,
   },
 
-  {
-    -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
+  --{
+  --  -- Highlight, edit, and navigate code
+  --  'nvim-treesitter/nvim-treesitter',
+  --  dependencies = {
+  --    'nvim-treesitter/nvim-treesitter-textobjects',
+  --  },
+  --  build = ':TSUpdate',
+  --},
 }, {})
 
 -- [[ Setting options ]]
@@ -128,8 +114,6 @@ vim.wo.number = true
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
@@ -158,6 +142,9 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+-- NETRW related configuration
+vim.g.netrw_winsize = 25
 
 -- [[ Basic Keymaps ]]
 
@@ -217,69 +204,69 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
-require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'r', 'julia', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
-
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
-
-  highlight = { enable = true },
-  indent = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<M-space>',
-    },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
-      },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
-      },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
-    },
-  },
-}
+--require('nvim-treesitter.configs').setup {
+--  -- Add languages to be installed here that you want installed for treesitter
+--  ensure_installed = { 'c', 'r', 'julia', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+--
+--  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+--  auto_install = false,
+--
+--  highlight = { enable = true },
+--  indent = { enable = true },
+--  incremental_selection = {
+--    enable = true,
+--    keymaps = {
+--      init_selection = '<c-space>',
+--      node_incremental = '<c-space>',
+--      scope_incremental = '<c-s>',
+--      node_decremental = '<M-space>',
+--    },
+--  },
+--  textobjects = {
+--    select = {
+--      enable = true,
+--      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+--      keymaps = {
+--        -- You can use the capture groups defined in textobjects.scm
+--        ['aa'] = '@parameter.outer',
+--        ['ia'] = '@parameter.inner',
+--        ['af'] = '@function.outer',
+--        ['if'] = '@function.inner',
+--        ['ac'] = '@class.outer',
+--        ['ic'] = '@class.inner',
+--      },
+--    },
+--    move = {
+--      enable = true,
+--      set_jumps = true, -- whether to set jumps in the jumplist
+--      goto_next_start = {
+--        [']m'] = '@function.outer',
+--        [']]'] = '@class.outer',
+--      },
+--      goto_next_end = {
+--        [']M'] = '@function.outer',
+--        [']['] = '@class.outer',
+--      },
+--      goto_previous_start = {
+--        ['[m'] = '@function.outer',
+--        ['[['] = '@class.outer',
+--      },
+--      goto_previous_end = {
+--        ['[M'] = '@function.outer',
+--        ['[]'] = '@class.outer',
+--      },
+--    },
+--    swap = {
+--      enable = true,
+--      swap_next = {
+--        ['<leader>a'] = '@parameter.inner',
+--      },
+--      swap_previous = {
+--        ['<leader>A'] = '@parameter.inner',
+--      },
+--    },
+--  },
+--}
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
@@ -289,7 +276,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(server_name, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -330,6 +317,13 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
+
+  -- LSP specific settings. 
+  if server_name == "clangd" then
+    local switch = function() vim.cmd('ClangdSwitchSourceHeader') end
+    nmap('<leader>sh', switch, "Switch between [s]ource and [h]eader file")
+  end
+
 end
 
 -- Enable the following language servers
@@ -338,7 +332,7 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
+  clangd = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
@@ -349,14 +343,14 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  r_language_server = {
-    r = {
-      lsp = {
-        diagnostics = false,
-        snippet_support = false
-      }
-    }
-  }
+  --r_language_server = {
+  --  r = {
+  --    lsp = {
+  --      diagnostics = false,
+  --      snippet_support = false
+  --    }
+  --  }
+  --}
 }
 
 -- Setup neovim lua configuration
@@ -377,7 +371,7 @@ mason_lspconfig.setup_handlers {
   function(server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
-      on_attach = on_attach,
+      on_attach = function(_, bufnr) on_attach(server_name, bufnr) end,
       settings = servers[server_name],
     }
   end,
