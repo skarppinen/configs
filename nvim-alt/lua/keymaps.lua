@@ -1,6 +1,8 @@
 vim.keymap.set('n', '<leader>ev', "<cmd>edit $MYVIMRC<cr>", {desc = "[E]dit [V]imrc (or init.lua)",
       noremap = true})
 
+vim.keymap.set('n', '<leader>x', "<cmd>Ex<cr>", {desc = "Run command E[x] (netrw)", noremap = true})
+
 vim.keymap.set('n', "<leader>'",
     function()
 	-- Get current column.
